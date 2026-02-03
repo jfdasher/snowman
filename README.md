@@ -22,6 +22,8 @@ However, when a corn-cob pipe was requested to be added "held jauntily," the spe
 
 **One-shot became two-shot** due to the ambiguous "held jauntily" specification for the pipe. The phrase didn't adequately convey the expected orientation of stem-to-bowl relative to the face.
 
+![Snowman](snowman.png)
+
 ## Files
 
 - `snowman.scad` - OpenSCAD source code
