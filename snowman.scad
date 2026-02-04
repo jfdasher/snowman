@@ -46,6 +46,36 @@ module hemisphere(r) {
     }
 }
 
+// Ski parameters
+ski_length = 160;
+ski_width = 10;
+ski_thickness = 4;
+ski_tip_radius = 20;
+ski_spacing = 35;
+
+// Module for a ski (pointing in -Y direction)
+module ski() {
+    color("DarkRed")
+    translate([0, ski_length/2 - ski_tip_radius, 0])
+    union() {
+        // Main ski body
+        translate([0, -ski_length/2 + ski_tip_radius, ski_thickness/2])
+            cube([ski_width, ski_length - ski_tip_radius, ski_thickness], center=true);
+
+        // Curved tip (front of ski)
+        translate([0, 0, ski_tip_radius])
+        rotate([0, 90, 0])
+        difference() {
+            cylinder(h=ski_width, r=ski_tip_radius, center=true);
+            cylinder(h=ski_width + 1, r=ski_tip_radius - ski_thickness, center=true);
+            translate([0, -ski_tip_radius, 0])
+                cube([2*ski_tip_radius, 2*ski_tip_radius, ski_width + 2], center=true);
+            translate([ski_tip_radius, 0, 0])
+                cube([2*ski_tip_radius, 2*ski_tip_radius, ski_width + 2], center=true);
+        }
+    }
+}
+
 // Body (bottom sphere)
 color("white")
 translate([0, 0, body_z])
@@ -134,3 +164,10 @@ rotate([25, 0, 0]) { // tilt the whole pipe upward jauntily
             cylinder(h=pipe_bowl_inner_depth + 1, r=pipe_bowl_inner_radius);
     }
 }
+
+// Skis (underneath the snowman)
+translate([ski_spacing/2, 0, 0])
+    ski();
+
+translate([-ski_spacing/2, 0, 0])
+    ski();
